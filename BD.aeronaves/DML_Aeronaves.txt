@@ -1,0 +1,53 @@
+insert into marca values ('Airbus');
+insert into marca values ('Antonov');
+insert into marca values ('Boeing');
+insert into marca values ('Cessna');
+insert into marca values ('Embraer');
+insert into marca values ('McDonnell Douglas');
+insert into marca values ('Tupolev');
+
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('Airbus','A300B1',335,170000);
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('Airbus','A380-800',853,575000);
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('Antonov','An-140',52,21500);
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('Cessna','140',1,658);
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('Embraer','ERJ-135',50,18500);
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('McDonnell Douglas','DC-10',380,263085);
+INSERT INTO modelo (nome_marca,nome,capacidade,peso) VALUES ('Tupolev','Tu-104',115,78100);
+
+INSERT INTO colaborador (id_colaborador, ncc, nome, morada, telefone, ncc_chefe) VALUES (1,130998771,'Jonh','Rua 1',918331331,1);
+INSERT INTO colaborador (id_colaborador,ncc,nome,morada,telefone,ncc_chefe) VALUES (2,130998772,'Mary','Rua 2',918331332,1);
+INSERT INTO colaborador (id_colaborador,ncc,nome,morada,telefone,ncc_chefe) VALUES (3,130998773,'Teresa','Rua 3',918331333,1);
+INSERT INTO colaborador (id_colaborador,ncc,nome,morada,telefone,ncc_chefe) VALUES (4,130998774,'Luis','Rua 4',918331334,1);
+INSERT INTO colaborador (id_colaborador,ncc,nome,morada,telefone,ncc_chefe) VALUES (5,130998775,'Afonso','Rua 5',918331335,1);
+INSERT INTO colaborador (id_colaborador,ncc,nome,morada,telefone,ncc_chefe) VALUES (6,130998776,'Siul','Rua 6',918331336,1);
+INSERT INTO colaborador (id_colaborador,ncc,nome,morada,telefone,ncc_chefe) VALUES (7,130998777,'Seveste','Rua 7',918331337,1);
+
+INSERT INTO controlador (id_colaborador,ncc) VALUES (2,130998772);
+INSERT INTO controlador (id_colaborador,ncc) VALUES (3,130998773);
+
+INSERT INTO exame_medico (id_exame,id_colaborador,dia,resultado) VALUES (1,2,str_to_date('14/12/1991', '%d/%m/%Y'),'Passou');
+INSERT INTO exame_medico (id_exame,id_colaborador,dia,resultado) VALUES (2,2,str_to_date('15/12/1991', '%d/%m/%Y'),'Passou');
+INSERT INTO exame_medico (id_exame,id_colaborador,dia,resultado) VALUES (3,2,str_to_date('16/12/1991', '%d/%m/%Y'),'Passou');
+INSERT INTO exame_medico (id_exame,id_colaborador,dia,resultado) VALUES (4,3,str_to_date('17/12/1991', '%d/%m/%Y'),'Passou');
+INSERT INTO exame_medico (id_exame,id_colaborador,dia,resultado) VALUES (5,3,str_to_date('18/12/1991', '%d/%m/%Y'),'Passou');
+INSERT INTO exame_medico (id_exame,id_colaborador,dia,resultado) VALUES (6,3,str_to_date('19/12/1991', '%d/%m/%Y'),'Passou');
+
+INSERT INTO Tecnico (id,id_colaborador,num_ncc) VALUES (1,4,130998774);
+INSERT INTO Tecnico (id,id_colaborador,num_ncc) VALUES (2,5,130998775);
+INSERT INTO Tecnico (id,id_colaborador,num_ncc) VALUES (3,6,130998776);
+INSERT INTO Tecnico (id,id_colaborador,num_ncc) VALUES (4,7,130998777);
+
+INSERT INTO Tecnico_Modelo (id,id_tecnico,nome_marca,nome_modelo) VALUES (1,4,'Airbus','A300B1');
+INSERT INTO Tecnico_Modelo (id,id_tecnico,nome_marca,nome_modelo) VALUES (2,5,'Airbus','A300B1');
+INSERT INTO Tecnico_Modelo (id,id_tecnico,nome_marca,nome_modelo) VALUES (3,6,'Boeing','An-140');
+INSERT INTO Tecnico_Modelo (id,id_tecnico,nome_marca,nome_modelo) VALUES (4,7,'Cessna','140');
+
+INSERT INTO Aeronave (num_registo,nome_marca,nome_modelo) VALUES (1,'Airbus','A300B1');
+INSERT INTO Aeronave (num_registo,nome_marca,nome_modelo) VALUES (2,'Boeing','An-140');
+INSERT INTO Aeronave (num_registo,nome_marca,nome_modelo) VALUES (3,'Cessna','140');
+
+INSERT INTO Intervencao (id_intervencao,dia,tipo,num_registo_aeronave) VALUES (1,str_to_date('14/11/2019', '%d/%m/%Y'),'PO1',1);
+INSERT INTO Intervencao (id_intervencao,dia,tipo,num_registo_aeronave) VALUES (2,str_to_date('13/11/2019', '%d/%m/%Y'),'PO2',2);
+INSERT INTO Intervencao (id_intervencao,dia,tipo,num_registo_aeronave) VALUES (3,str_to_date('11/11/2019', '%d/%m/%Y'),'PO3',3);
+
+INSERT INTO Tecnico_Intervencao (id,id_tecnico,id_intervencao,duracao) VALUES (1,4,1,90);

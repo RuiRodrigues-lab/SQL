@@ -1,0 +1,129 @@
+DROP DATABASE IF EXISTS aeronaves;
+CREATE DATABASE aeronaves;
+USE aeronaves;
+-- Rui
+
+CREATE TABLE `Marca` (
+    `nome` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `nome`
+    )
+);
+
+CREATE TABLE `Modelo` (
+    `nome` varchar(50)  NOT NULL ,
+    `nome_marca` varchar(50)  NOT NULL ,
+    `capacidade` int  NOT NULL ,
+    `peso` numeric(8,2)  NOT NULL ,
+    PRIMARY KEY (
+        `nome`
+    )
+);
+
+CREATE TABLE `Aeronave` (
+    `num_registo` varchar(8)  NOT NULL ,
+    `nome_marca` varchar(50)  NOT NULL ,
+    `nome_modelo` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `num_registo`
+    )
+);
+
+CREATE TABLE `Intervencao` (
+    `id_intervencao` int  NOT NULL ,
+    `dia` date  NOT NULL ,
+    `tipo` varchar(50)  NOT NULL ,
+    `num_registo_aeronave` varchar(8)  NOT NULL ,
+    PRIMARY KEY (
+        `id_intervencao`
+    )
+);
+
+CREATE TABLE `Colaborador` (
+    `id_colaborador` int  NOT NULL ,
+    `ncc` char(9)  NOT NULL ,
+    `nome` varchar(100)  NOT NULL ,
+    `morada` varchar(100)  NOT NULL ,
+    `telefone` varchar(15)  NOT NULL ,
+    `ncc_chefe` char(9)  NOT NULL ,
+    PRIMARY KEY (
+        `id_colaborador`
+    )
+);
+
+CREATE TABLE `Tecnico` (
+    `id` int  NOT NULL ,
+    `id_colaborador` int  NOT NULL ,
+    `num_ncc` char(9)  NOT NULL ,
+    PRIMARY KEY (
+        `id`
+    ),
+    CONSTRAINT `uc_Tecnico_num_ncc` UNIQUE (
+        `num_ncc`
+    )
+);
+
+create table controlador (
+id_colaborador int,
+ncc varchar(9),
+foreign key (id_colaborador) references colaborador (id_colaborador)
+);
+
+create table Exame_Medico(
+id_exame int , 
+id_colaborador int, 
+dia date, 
+resultado varchar(20),
+primary key (id_exame),
+foreign key (id_colaborador) references Controlador(id_colaborador)
+);
+
+CREATE TABLE `Tecnico_Modelo` (
+    `id` int  NOT NULL ,
+    `id_tecnico` int  NOT NULL ,
+    `nome_marca` varchar(50)  NOT NULL ,
+    `nome_modelo` varchar(50)  NOT NULL ,
+    PRIMARY KEY (
+        `id`
+    )
+);
+
+CREATE TABLE `Tecnico_Intervencao` (
+    `id` int  NOT NULL ,
+    `id_tecnico` int  NOT NULL ,
+    `id_intervencao` int  NOT NULL ,
+    `duracao` numeric(6,2)  NOT NULL ,
+    PRIMARY KEY (
+        `id`
+    )
+);
+
+ALTER TABLE `Modelo` ADD CONSTRAINT `fk_Modelo_nome_marca` FOREIGN KEY(`nome_marca`)
+REFERENCES `Marca` (`nome`);
+
+ALTER TABLE `Aeronave` ADD CONSTRAINT `fk_Aeronave_nome_marca` FOREIGN KEY(`nome_marca`)
+REFERENCES `Marca` (`nome`);
+
+ALTER TABLE `Aeronave` ADD CONSTRAINT `fk_Aeronave_nome_modelo` FOREIGN KEY(`nome_modelo`)
+REFERENCES `Modelo` (`nome`);
+
+ALTER TABLE `Intervencao` ADD CONSTRAINT `fk_Intervencao_num_registo_aeronave` FOREIGN KEY(`num_registo_aeronave`)
+REFERENCES `Aeronave` (`num_registo`);
+
+ALTER TABLE `Tecnico` ADD CONSTRAINT `fk_Tecnico_id_colaborador` FOREIGN KEY(`id_colaborador`)
+REFERENCES `Colaborador` (`id_colaborador`);
+
+ALTER TABLE `Tecnico_Modelo` ADD CONSTRAINT `fk_Tecnico_Modelo_id_tecnico` FOREIGN KEY(`id_tecnico`)
+REFERENCES `Tecnico` (`id_colaborador`);
+
+ALTER TABLE `Tecnico_Modelo` ADD CONSTRAINT `fk_Tecnico_Modelo_nome_marca` FOREIGN KEY(`nome_marca`)
+REFERENCES `Marca` (`nome`);
+
+ALTER TABLE `Tecnico_Modelo` ADD CONSTRAINT `fk_Tecnico_Modelo_nome_modelo` FOREIGN KEY(`nome_modelo`)
+REFERENCES `Modelo` (`nome`);
+
+ALTER TABLE `Tecnico_Intervencao` ADD CONSTRAINT `fk_Tecnico_Intervencao_id_tecnico` FOREIGN KEY(`id_tecnico`)
+REFERENCES `Tecnico_Modelo` (`id_tecnico`);
+
+ALTER TABLE `Tecnico_Intervencao` ADD CONSTRAINT `fk_Tecnico_Intervencao_id_intervencao` FOREIGN KEY(`id_intervencao`)
+REFERENCES `Intervencao` (`id_intervencao`);
